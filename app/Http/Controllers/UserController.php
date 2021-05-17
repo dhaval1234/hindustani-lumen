@@ -37,12 +37,13 @@ class UserController extends Controller
             $user->lastname = trim($request->lastname);
             $user->adhar_card = $request->adhar_card;
             $user->dob = $request->dob;
-            $user->gender = $request->gender;
+            $user->gender = $request->gender == "male" ? 1 : 0;
             $user->father_id = $request->father_id;
             $user->mother_id = $request->mother_id;
             $user->save();
             return $this->sendResponse($user, "User added successfully done");
         } catch (\Exception $e) {
+            return $e->getMessage();
             return $this->sendBadRequest(null, "Something went to be wrong. Please try again later",400);
         }
     }
@@ -68,7 +69,7 @@ class UserController extends Controller
             $user['lastname'] = trim($request->lastname);
             $user['adhar_card'] = $request->adhar_card;
             $user['dob'] = $request->dob;
-            $user['gender'] = $request->gender;
+            $user['gender'] = $request->gender == "male" ? 1 : 0 ;
             $user['father_id'] = $request->father_id;
             $user['mother_id'] = $request->mother_id;
             $userData->update($user);
